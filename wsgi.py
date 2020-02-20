@@ -18,7 +18,7 @@ app.config['MONGO_URI'] = 'mongodb+srv://captain204:hQF4xoLiPw5rXQ2c@cluster0-fa
 
 mongo = PyMongo(app)
 
-@app.route('/search', methods=['GET'])
+@app.route('/', methods=['GET'])
 def search():
     card = mongo.db.cards
     result = []
