@@ -1,2 +1,2 @@
-## Pin generator application
-Heroku link:https://pinflask.herokuapp.com/
+## Search
+Heroku link:https://searchvoucher.herokuapp.com/

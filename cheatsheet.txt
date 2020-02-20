@@ -139,3 +139,8 @@ db.getCollectionNames().forEach(function(cards) {
     db.runCommand({dropIndexes: cards, index: "*"});
 });
 hQF4xoLiPw5rXQ2c
+#mongodb+srv://captain204:@cluster0-fa1lj.mongodb.net/test?retryWrites=true&w=majority
+#mongodb+srv://captain204:hQF4xoLiPw5rXQ2c@cluster0-fa1lj.mongodb.net/test?retryWrites=true&w=majority
+#shell
+#mongo "mongodb+srv://cluster0-fa1lj.mongodb.net/test"  --username captain204
+#app.config['MONGO_URI'] = 'mongodb://localhost:27017/voucher'
