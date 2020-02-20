@@ -1,15 +1,15 @@
 
+dnspython==1.16.0
 Flask-PyMongo==2.3.0
-flask-redis==0.4.0
 Flask-RESTful==0.3.7
 gunicorn==20.0.2
 psycopg2==2.8.4
 psycopg2-binary==2.8.4
-py==1.8.0
-pyasn1==0.4.8
 pymongo==3.10.1
-SecretStorage==2.3.1
+requests==2.18.4
+requests-unixsocket==0.1.5
 simplejson==3.13.2
+system-service==0.3
+systemd-python==234
 virtualenv==16.7.9
 virtualenv-clone==0.5.3
-Werkzeug==0.16.0
