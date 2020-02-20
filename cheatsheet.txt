@@ -138,3 +138,4 @@ db.collection.dropIndexes()
 db.getCollectionNames().forEach(function(cards) { 
     db.runCommand({dropIndexes: cards, index: "*"});
 });
+hQF4xoLiPw5rXQ2c

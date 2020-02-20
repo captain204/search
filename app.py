@@ -8,11 +8,16 @@ from bson import json_util
 app = Flask(__name__)
 
 app.config['MONGO_DBNAME'] = 'voucher'
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/voucher'
+#app.config['MONGO_URI'] = 'mongodb://localhost:27017/voucher'
+app.config['MONGO_URI'] = 'mongodb+srv://captain204:<password>@cluster0-fa1lj.mongodb.net/test?retryWrites=true&w=majority'
+#mongodb+srv://captain204:<password>@cluster0-fa1lj.mongodb.net/test?retryWrites=true&w=majority
+#mongodb+srv://captain204:<password>@cluster0-fa1lj.mongodb.net/test?retryWrites=true&w=majority
+#shell
+#mongo "mongodb+srv://cluster0-fa1lj.mongodb.net/test"  --username captain204
 
 mongo = PyMongo(app)
 
-@app.route('/search', methods=['GET'])
+@app.route('/', methods=['GET'])
 def search():
     card = mongo.db.cards
     result = []
