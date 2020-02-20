@@ -31,7 +31,7 @@ def search():
 
 
 
-@app.route('/search/<string>', methods = ['GET'])
+@app.route('/search/<string>',methods = ['GET'])
 def search_by_keyword(string):
     search_by_keyword = mongo.db.cards
     q = search_by_keyword.find( { "$text": { "$search": string } } )
