@@ -1,6 +1,4 @@
-from flask import Flask
-from flask import jsonify
-from flask import request,redirect
+from flask import Flask, request, jsonify,redirect
 from flask_pymongo import PyMongo
 import json
 import os
@@ -11,10 +9,11 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 app.config['MONGO_DBNAME'] = 'voucher'
 #app.config['MONGO_URI'] = 'mongodb://localhost:27017/voucher'
-app.config['MONGO_URI'] = 'mongodb+srv://captain204:<password>@cluster0-fa1lj.mongodb.net/test?retryWrites=true&w=majority'
+app.config['MONGO_URI'] = 'mongodb+srv://captain204:hQF4xoLiPw5rXQ2c@cluster0-fa1lj.mongodb.net/test?retryWrites=true&w=majority'
 #mongodb+srv://captain204:<password>@cluster0-fa1lj.mongodb.net/test?retryWrites=true&w=majority
 #mongodb+srv://captain204:<password>@cluster0-fa1lj.mongodb.net/test?retryWrites=true&w=majority
 #shell
+
 #mongo "mongodb+srv://cluster0-fa1lj.mongodb.net/test"  --username captain204
 
 mongo = PyMongo(app)
