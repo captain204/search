@@ -6,6 +6,7 @@ import json
 from bson import json_util
 
 app = Flask(__name__)
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 app.config['MONGO_DBNAME'] = 'voucher'
 #app.config['MONGO_URI'] = 'mongodb://localhost:27017/voucher'
