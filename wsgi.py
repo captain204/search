@@ -22,7 +22,7 @@ app.config['MONGO_URI'] ='mongodb+srv://donjoe:praise1234@cluster0-of0j7.azure.m
 
 mongo = PyMongo(app)
 
-@app.route('/search', methods=['GET'])
+@app.route('/', methods=['GET'])
 def card():
     cards = mongo.db.voucher.find()
     response = dumps(cards)
