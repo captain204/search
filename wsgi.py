@@ -10,7 +10,9 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 #app.config['MONGO_DBNAME'] = 'voucher'
 #app.config['MONGO_URI'] = 'mongodb://localhost:27017/voucher'
-app.config['MONGO_URI'] = 'mongodb+srv://captain204:hQF4xoLiPw5rXQ2c@cluster0-fa1lj.mongodb.net/test?retryWrites=true&w=majority'
+#Main db
+app.config['MONGO_URI'] = 'mongodb+srv://donjoe:praise1234@cluster0-of0j7.azure.mongodb.net/test?retryWrites=true&w=majority'
+#app.config['MONGO_URI'] = 'mongodb+srv://captain204:hQF4xoLiPw5rXQ2c@cluster0-fa1lj.mongodb.net/test?retryWrites=true&w=majority'
 #mongodb+srv://captain204:<password>@cluster0-fa1lj.mongodb.net/test?retryWrites=true&w=majority
 #mongodb+srv://captain204:<password>@cluster0-fa1lj.mongodb.net/test?retryWrites=true&w=majority
 #shell
@@ -21,26 +23,33 @@ mongo = PyMongo(app)
 
 @app.route('/search', methods=['GET'])
 def card():
-    cards = mongo.db.cards.find()
+    cards = mongo.db.voucher.find()
     response = dumps(cards)
     return response
 
 @app.route('/search/<string>',methods = ['GET'])
 def search_by_keyword(string):
     #Full search
-    search = mongo.db.cards.find({"$text": { "$search": string } } )
+    search = mongo.db.voucher.find({"$text": { "$search": string } } )
     for item in search:    
         return dumps(item)
     #return ("E no dey work")
     # Partial search
     text ="{}.*".format(string)
-    partial = mongo.db.cards.find({
+    partial = mongo.db.voucher.find({
         "$or":[
-                {'pin': {"$regex":text,"$options":'i'}},
-                {'batch_no': {"$regex":text,"$options":'i'}},
-                {'price': {"$regex":text,"$options":'i'}},
+                
                 {'date': {"$regex":text,"$options":'i'}},
-                {'transactions': {"$regex":text,"$options":'i'}}
+                {'time': {"$regex":text,"$options":'i'}},
+                {'price': {"$regex":text,"$options":'i'}},
+                {'state': {"$regex":text,"$options":'i'}},
+                {'used': {"$regex":text,"$options":'i'}},
+                {'pin': {"$regex":text,"$options":'i'}},
+                {'serial_no': {"$regex":text,"$options":'i'}},
+                {'activation_status': {"$regex":text,"$options":'i'}},
+                {'dealer_id': {"$regex":text,"$options":'i'}},
+                {'batch': {"$regex":text,"$options":'i'}}                
+                
              ]
           })
     for result in partial:
