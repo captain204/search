@@ -23,20 +23,20 @@ mongo = PyMongo(app)
 
 @app.route('/search', methods=['GET'])
 def card():
-    cards = mongo.db.voucher.find()
+    cards = mongo.voucher.voucher.find()
     response = dumps(cards)
     return response
 
 @app.route('/search/<string>',methods = ['GET'])
 def search_by_keyword(string):
     #Full search
-    search = mongo.db.voucher.find({"$text": { "$search": string } } )
+    search = mongo.voucher.voucher.find({"$text": { "$search": string } } )
     for item in search:    
         return dumps(item)
     #return ("E no dey work")
     # Partial search
     text ="{}.*".format(string)
-    partial = mongo.db.voucher.find({
+    partial = mongo.voucher.voucher.find({
         "$or":[
                 
                 {'date': {"$regex":text,"$options":'i'}},
