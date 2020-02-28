@@ -11,7 +11,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 #app.config['MONGO_DBNAME'] = 'voucher'
 #app.config['MONGO_URI'] = 'mongodb://localhost:27017/voucher'
 #Main db
-app.config['MONGO_URI'] ='mongodb+srv://donjoe:praise1234@cluster0-of0j7.azure.mongodb.net/test?retryWrites=true&w=majority'
+app.config['MONGO_URI'] ='mongodb+srv://donjoe:praise1234@cluster0-of0j7.azure.mongodb.net/voucher?retryWrites=true&w=majority'
 
 #app.config['MONGO_URI'] = 'mongodb+srv://captain204:hQF4xoLiPw5rXQ2c@cluster0-fa1lj.mongodb.net/test?retryWrites=true&w=majority'
 #mongodb+srv://captain204:<password>@cluster0-fa1lj.mongodb.net/test?retryWrites=true&w=majority
