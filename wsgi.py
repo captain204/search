@@ -30,19 +30,19 @@ def card():
 
 @app.route('/search/<string>',methods = ['GET'])
 def search_by_keyword(string):
-    
+    #Partial search
+    partial=mongo.db.voucher.find({'pin': {"$regex":text,"$options":'i'}})
+    for result in partial:
+        return dumps(result)
+    return{'message':'No match found'}
+
     # Full text search
     text ="/{}/".format(string)
     search = mongo.db.voucher.find({"$text": { "$search": string } } )
     for item in search:    
         return dumps(item)
     #return ("E no dey work")
-    #Partial search
-    partial=mongo.db.voucher.find({'pin': {"$regex":text,"$options":'i'}})
-    for result in partial:
-        return dumps(result)
-    return{'message':'No match found'}
- 
+    
         
 
 if __name__ == "__main__":
