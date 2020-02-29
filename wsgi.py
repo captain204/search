@@ -31,7 +31,7 @@ def card():
 @app.route('/search/<string>',methods = ['GET'])
 def search_by_keyword(string):
     #Partial search
-    text ="/{}/".format(string)
+    text ="{}.*".format(string)
     partial=mongo.db.voucher.find({'pin': {"$regex":text,"$options":'i'}})
     for result in partial:
         return dumps(result)
