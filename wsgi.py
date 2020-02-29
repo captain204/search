@@ -30,32 +30,17 @@ def card():
 
 @app.route('/search/<string>',methods = ['GET'])
 def search_by_keyword(string):
-    #Partial search
-    text ="{}.*".format(string)
-    partial = mongo.db.voucher.find({
-        "$or":[
-                
-                {'date': {"$regex":text,"$options":'i'}},
-                {'time': {"$regex":text,"$options":'i'}},
-                {'price': {"$regex":text,"$options":'i'}},
-                {'state': {"$regex":text,"$options":'i'}},
-                {'used': {"$regex":text,"$options":'i'}},
-                {'pin': {"$regex":text,"$options":'i'}},
-                {'serial_no': {"$regex":text,"$options":'i'}},
-                {'activation_status': {"$regex":text,"$options":'i'}},
-                {'dealer_id': {"$regex":text,"$options":'i'}},
-                {'batch': {"$regex":text,"$options":'i'}}                
-                
-             ]
-          })
-    for result in partial:
-        return dumps(result)
+    
     # Full text search
+    text ="/{}/".format(string)
     search = mongo.db.voucher.find({"$text": { "$search": string } } )
     for item in search:    
         return dumps(item)
     #return ("E no dey work")
-    
+    #Partial search
+    partial=mongo.db.voucher.find({'pin': {"$regex":text,"$options":'i'}})
+    for result in partial:
+        return dumps(result)
     return{'message':'No match found'}
  
         
