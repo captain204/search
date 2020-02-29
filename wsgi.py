@@ -30,12 +30,7 @@ def card():
 
 @app.route('/search/<string>',methods = ['GET'])
 def search_by_keyword(string):
-    #Full search
-    search = mongo.db.voucher.find({"$text": { "$search": string } } )
-    for item in search:    
-        return dumps(item)
-    #return ("E no dey work")
-    # Partial search
+    #Partial search
     text ="{}.*".format(string)
     partial = mongo.db.voucher.find({
         "$or":[
@@ -55,6 +50,12 @@ def search_by_keyword(string):
           })
     for result in partial:
         return dumps(result)
+    # Full text search
+    search = mongo.db.voucher.find({"$text": { "$search": string } } )
+    for item in search:    
+        return dumps(item)
+    #return ("E no dey work")
+    
     return{'message':'No match found'}
  
         
