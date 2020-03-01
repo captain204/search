@@ -24,7 +24,6 @@ mongo = PyMongo(app)
 
 @app.route('/search/<string>',methods = ['GET','POST'])
 def Post(string):
-    
     value = str(string)
     result = []
     if value[0].isdigit() and int(value) < 3:
@@ -70,10 +69,62 @@ def Post(string):
  
 
 
+@app.route('/new',methods = ['POST'])
+def newPost():    
+    keyword = request.json['keyword']
+    if not keyword:
+        return {"message":"Please enter a search keyword"},400
+    result = []
+    #Search by batch
+    if keyword and len(keyword)< 3:
+        search = mongo.db.voucher.find({"batch":int(keyword)})
+        for item in search:
+            result.append(item)
+        if not result:
+            return {"message":"No match found"},400
+        return dumps(result)
+    #Search by pin
+    if len(str(keyword)) == 15:
+        search = mongo.db.voucher.find({"pin":str(keyword)})
+        for item in search:
+            result.append(item)
+        if not result:
+            return {"message":"No match found"},404
+        return dumps(result)
 
+    #Search by serial number
+    if keyword.isdigit():
+        search = mongo.db.voucher.find({"serial_no":int(keyword)})
+        for item in search:
+            result.append(item)
+        if not result:
+            return {"message":"No match found"},404
+        return dumps(result)
+        
+    #Search by username
+    if re.search('[a-zA-Z]',keyword) and len(keyword) != 8:
+        search = mongo.db.users.find({"username":keyword})
+        for item in search:
+            result.append(item)
+        if not result:
+            return {"message":"No match found"},404
+        return dumps(result)
+        
+    if len(keyword) == 8 and re.search('[a-zA-Z]',keyword):
+        search = mongo.db.users.find({"role":keyword})
+        for item in search:
+            result.append(item)
+        if not result:
+            return {"message":"No match found"},404
+        return dumps(result)
 
-
-
+    #Full text search
+    search = mongo.db.voucher.find({"$text": { "$search":keyword}} )
+    for item in search:
+        result.append(item)
+    if not result:
+        return {"message":"No match found"},404
+    return dumps(result)
 
 
 if __name__ == "__main__":
