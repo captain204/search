@@ -1,3 +1,3 @@
 ## Search
 Heroku link:https://searchvoucher.herokuapp.com/
-https://explore.postman.com/templates/5639/search
+https://documenter.getpostman.com/view/9371935/SzKZsw8z?version=latest
