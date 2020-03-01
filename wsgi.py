@@ -22,28 +22,59 @@ app.config['MONGO_URI'] ='mongodb+srv://donjoe:praise1234@cluster0-of0j7.azure.m
 
 mongo = PyMongo(app)
 
-@app.route('/', methods=['GET'])
-def card():
-    cards = mongo.db.voucher.find()
-    response = dumps(cards)
-    return response
-
-@app.route('/search/<string>',methods = ['GET'])
-def search_by_keyword(string):
-    #Partial search
-    text ="{}.*".format(string)
-    partial=mongo.db.voucher.find({'pin': {"$regex":text,"$options":'i'}})
-    for result in partial:
+@app.route('/search/<string>',methods = ['GET','POST'])
+def Post(string):
+    
+    value = str(string)
+    result = []
+    if value[0].isdigit() and int(value) < 3:
+        search = mongo.db.voucher.find({"batch":int(value)})
+        #search = ["food","people"]
+        for item in search:    
+            result.append(item)
         return dumps(result)
-    # Full text search
-   
-    search = mongo.db.voucher.find({"$text": { "$search": string } } )
-    for item in search:    
-        return dumps(item)
-    #return ("E no dey work")
-    return{'message':'No match found'}
+
+    if len(value) == 15 and value.isdigit():
+        search = mongo.db.voucher.find({"pin":value})
+        #search = ["pin1","pin2"]
+        for item in search:    
+            result.append(item)
+        return dumps(result)
+
+
+    if  value[:].isdigit():
+        search = mongo.db.voucher.find({"serial_no":int(value)})
+        for item in search:    
+            result.append(item)
+        return dumps(result)
 
         
+    if re.search('[a-zA-Z]',value) and len(value) != 8:
+        search = mongo.db.users.find({"username":value})
+        for item in search:
+            result.append(item)
+        return dumps(result)
+
+    if len(value) == 8 and re.search('[a-zA-Z]',value):
+        search = mongo.db.users.find({"role":value})
+        for item in search:
+            result.append(item)
+        return dumps(result)
+
+    
+    search = mongo.db.voucher.find({"$text": { "$search": value } } )
+    for item in search:    
+        result.append(item)
+        return dumps(result)
+    return{'message':'No match found'}
+ 
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
   app.run(debug=True)
