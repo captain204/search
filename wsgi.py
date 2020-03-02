@@ -22,7 +22,7 @@ app.config['MONGO_URI'] ='mongodb+srv://donjoe:praise1234@cluster0-of0j7.azure.m
 
 mongo = PyMongo(app)
 
-@app.route('/search/<string>',methods = ['GET','POST'])
+@app.route('/new/<string>',methods = ['GET','POST'])
 def Post(string):
     value = str(string)
     result = []
@@ -69,7 +69,7 @@ def Post(string):
  
 
 
-@app.route('/new',methods = ['POST'])
+@app.route('/search',methods = ['POST'])
 def newPost():    
     keyword = request.json['keyword']
     if not keyword:
